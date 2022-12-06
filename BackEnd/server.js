@@ -70,6 +70,16 @@ app.put('/api/book/:id', (req, res)=>{
     })
 })
 
+//Deleting a book from the database by calling on the unique id of the book
+app.delete('/api/book/:id', (req,res)=> {
+  console.log("Deleted: "+req.params.id);
+
+  bookModel.findByIdAndDelete({_id: req.params.id},
+    (error, data)=> {
+      res.send(data);
+    })
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })

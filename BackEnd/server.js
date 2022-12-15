@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 4000
 var bodyParser = require('body-parser')
+const path = require('path');
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -80,6 +81,12 @@ app.delete('/api/book/:id', (req,res)=> {
     })
 })
 
+//Making a http request to get back the index.html page within the build folder
+//With this method we get the front end and back end of application regardless of which localhost we use
+app.get('*', (req,res)=>{
+  res.sendFile(path.join(__dirname+'/../build/index.html'));
+});
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Example app listening at http://localhost:${port}`)
 })
